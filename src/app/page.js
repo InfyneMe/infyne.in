@@ -1,4 +1,6 @@
 'use client';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Globe, Smartphone, Megaphone, Palette, Server, ArrowRight, CheckCircle, ChevronDown } from 'lucide-react';
 import { LightBulbIcon, HeartIcon, StarIcon, UserGroupIcon } from '@heroicons/react/outline';
@@ -193,11 +195,49 @@ export default function Home() {
       features: ["Cloud Solutions", "IT Infrastructure", "Security Services"]
     }
   ];
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    fullName: '',
+    workEmail: '',
+    company: '',
+    projectDetails: '',
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: formData }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const result = await response.json();
+      toast.success('Request sent successfully! We will contact you soon.');
+    } catch (error) {
+      toast.error('Failed to send email.Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main id='maintab' className="w-full overflow-hidden bg-gray-50">
       <Navbar />
-
+      <ToastContainer />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-20 bg-white">
         <HeroBackground />
@@ -278,31 +318,54 @@ export default function Home() {
               <p className="text-xl text-gray-600 mb-8">
                 Schedule a consultation with our experts to discuss your project
               </p>
-              <form className="space-y-6 ">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <input
                     type="text"
+                    name="fullName"
                     placeholder="Full Name"
+                    value={formData.fullName}
+                    onChange={handleChange}
                     className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                    required
                   />
                   <input
                     type="email"
+                    name="workEmail"
                     placeholder="Work Email"
+                    value={formData.workEmail}
+                    onChange={handleChange}
                     className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                    required
                   />
                 </div>
                 <input
                   type="text"
+                  name="company"
                   placeholder="Company"
+                  value={formData.company}
+                  onChange={handleChange}
                   className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  required
                 />
                 <textarea
+                  name="projectDetails"
                   placeholder="Project Details"
                   rows="4"
+                  value={formData.projectDetails}
+                  onChange={handleChange}
                   className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  required
                 />
-                <button className="w-full md:w-auto px-12 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
-                  Schedule Consultation
+                <button
+                  type="submit"
+                  className="w-full md:w-auto px-12 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg"
+                >
+                  {loading ? (
+                    'Sending...'
+                  ) : (
+                    'Schedule Consultation'
+                  )}
                 </button>
               </form>
             </div>
