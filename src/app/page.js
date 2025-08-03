@@ -39,7 +39,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center space-x-8">
             <span className="text-3xl font-bold text-blue-600" >
-              Infyne
+              infyne.in
             </span>
             <div className="hidden md:flex space-x-8">
               {['Services', 'About'].map((item) => (
@@ -422,10 +422,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             {/* Company Info */}
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-white">Infyne</h2>
+              <h2 className="text-3xl font-bold text-white">infyne.in</h2>
               <p className="text-white-400 leading-relaxed">
-                Empowering vehicle owners with smart reminders and seamless ride
-                management solutions. Your journey, our priority.
+                Empowering businesses through innovative digital solutions and cutting-edge 
+                technology services. Your digital transformation, our expertise.
               </p>
               <div className="flex space-x-4">
                 <a
@@ -520,27 +520,27 @@ export default function Home() {
               <ul className="space-y-4">
                 <li>
                   <a href="#" className="hover:text-white transition-colors">
-                    Vehicle Reminders
+                    Web Development
                   </a>
                 </li>
                 <li>
                   <a href="#" className="hover:text-white transition-colors">
-                    Ride Booking
+                    App Development
                   </a>
                 </li>
                 <li>
                   <a href="#" className="hover:text-white transition-colors">
-                    Maintenance Tracking
+                    Digital Marketing
                   </a>
                 </li>
                 <li>
                   <a href="#" className="hover:text-white transition-colors">
-                    Digital Wallet
+                    UX/UI Design
                   </a>
                 </li>
                 <li>
                   <a href="#" className="hover:text-white transition-colors">
-                    24/7 Support
+                    IT Solutions
                   </a>
                 </li>
               </ul>
@@ -571,7 +571,7 @@ export default function Home() {
           <div className="border-t border-gray-800 pt-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="text-sm">
-                © {new Date().getFullYear()} Infyne. All rights reserved.
+                © {new Date().getFullYear()} infyne.in. All rights reserved.
               </div>
               <div className="flex space-x-6 text-sm md:justify-end">
                 <a href="#" className="hover:text-white transition-colors">
